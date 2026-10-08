@@ -1,5 +1,5 @@
 from textnode import TextNode, TextType
-from generate_content import extract_title, generate_page
+from generate_content import generate_page, generate_pages_recursive
 import os
 import shutil
 
@@ -15,7 +15,8 @@ def main():
     
     copy_dir(STATIC_DIR, PUBLIC_DIR)
     
-    generate_page(f"{CONTENT_DIR}/index.md", TEMPLATE_PATH, f"{PUBLIC_DIR}/index.html")
+    #generate_page(f"{CONTENT_DIR}/index.md", TEMPLATE_PATH, f"{PUBLIC_DIR}/index.html")
+    generate_pages_recursive(CONTENT_DIR, TEMPLATE_PATH, PUBLIC_DIR)
     
 def copy_dir(src: str, dst: str):
     dir_contents = [os.path.join(src, name) for name in os.listdir(src)]
