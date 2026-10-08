@@ -2,13 +2,16 @@ from textnode import TextNode, TextType
 from generate_content import generate_page, generate_pages_recursive
 import os
 import shutil
+import sys
 
 STATIC_DIR = "./static"
-PUBLIC_DIR = "./public"
+PUBLIC_DIR = "./docs"
 CONTENT_DIR = "./content"
 TEMPLATE_PATH = "./template.html"
 
 def main():
+    basepath = sys.argv[1] if len(sys.argv)>1 else "/"
+    
     if os.path.exists(PUBLIC_DIR):
         shutil.rmtree(PUBLIC_DIR)
     os.mkdir(PUBLIC_DIR)
@@ -16,7 +19,7 @@ def main():
     copy_dir(STATIC_DIR, PUBLIC_DIR)
     
     #generate_page(f"{CONTENT_DIR}/index.md", TEMPLATE_PATH, f"{PUBLIC_DIR}/index.html")
-    generate_pages_recursive(CONTENT_DIR, TEMPLATE_PATH, PUBLIC_DIR)
+    generate_pages_recursive(CONTENT_DIR, TEMPLATE_PATH, PUBLIC_DIR, basepath)
     
 def copy_dir(src: str, dst: str):
     dir_contents = [os.path.join(src, name) for name in os.listdir(src)]
